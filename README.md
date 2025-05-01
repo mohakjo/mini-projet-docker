@@ -1,40 +1,60 @@
-📦 Student List – Mini-projet Docker
-Ce projet est une preuve de concept (POC) visant à dockeriser une application web composée de deux modules (API + interface PHP) pour une entreprise fictive, POZOS.
+# Mini-projet Docker – Student List App
 
-🎯 Objectifs
-Appliquer les bonnes pratiques Docker sur une application existante
+Ce projet consiste à **dockeriser une application web composée de deux modules** (API Flask + Front PHP) pour une entreprise fictive, POZOS.
 
-Déployer une architecture découplée avec docker-compose
+## Stack technique
 
-Gérer le cycle de vie des conteneurs, les volumes, les ports et l’authentification
+- Docker
+- Docker Compose
+- Flask (API REST)
+- PHP / Apache (interface utilisateur)
+- CentOS (VM recommandée)
 
-Mettre en place un registry Docker privé
+## 📂 Fichiers du projet
 
-🧱 Stack technique
-Docker / Docker Compose
+- `Dockerfile` : pour construire l’image de l’API Flask
+- `docker-compose.yml` : pour orchestrer le déploiement de l’API et du front PHP
+- `requirements.txt` : dépendances Python
+- `student_age.json` : fichier JSON des étudiants
+- `student_age.py` : script Python de l’API
+- `index.php` : interface front
+- `/website/` : dossier monté avec les fichiers PHP
 
-Flask (API Python)
+## 🔧 Fonctionnalités
 
-PHP / Apache (interface web)
+- L’**API Flask** fournit une liste d’élèves au format JSON
+- Le **site PHP** consomme l’API et affiche les résultats
+- Utilisation de **volumes**, **ports exposés**, **variables d’environnement**
+- **Déploiement orchestré via Docker Compose**
 
-CentOS 7.6 (VM)
+## ▶️ Lancement
 
-Private Docker Registry
+1. Construire l’image API :
 
-⚙️ Fonctionnement de l’application
-L’API Flask fournit une liste d’élèves via un fichier JSON (authentification requise)
+```bash
+docker build -t student-api .
+```
 
-L’interface PHP consomme cette API et affiche les données côté client
+## 
 
-Chaque composant tourne dans un conteneur dédié et communique via une infrastructure définie en docker-compose.yml.
+2. Lancer toute l’infrastructure :
+```bash
+docker-compose up -d
+```
 
-🔧 Réalisations techniques
-Création des Dockerfiles pour l’API
+3. Accéder au front via le port défini et tester l’API avec curl :
 
-Configuration du docker-compose pour orchestrer les services
+```bash
+curl -u toto:python http://localhost:5000/pozos/api/v1.0/get_student_ages
+```
 
-Gestion des volumes persistants et des réseaux personnalisés
+# 🎯 Objectifs pédagogiques
+Appliquer les bonnes pratiques Docker
 
-Déploiement d’un Docker Registry privé avec interface web
+Utiliser Docker Compose pour structurer une application multi-conteneurs
 
-Push de l’image construite dans le registry
+Gérer des volumes, ports, réseaux et services
+
+Comprendre l’architecture découplée
+
+
